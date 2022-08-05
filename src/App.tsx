@@ -1,8 +1,13 @@
 import { ThemeProvider } from '@emotion/react';
-import theme from './theme';
+import theme from 'theme';
+import Home from 'pages/home';
 
 function App() {
-  return <ThemeProvider theme={theme}>dept app</ThemeProvider>;
+  return (
+    <ThemeProvider theme={theme}>
+      <Home />
+    </ThemeProvider>
+  );
 }
 
 export default App;

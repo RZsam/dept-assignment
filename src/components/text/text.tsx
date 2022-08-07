@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { FC } from 'react';
+import { CSSProperties, FC, ReactNode } from 'react';
 
 interface StyledPProps {
   color?: 'white' | 'grey' | 'black' | 'lightGrey' | 'danger';
@@ -39,7 +39,8 @@ const StyledP = styled.p<StyledPProps>((props) => ({
 
 type TextProps = StyledPProps & {
   className?: string;
-  children: string | number;
+  children: ReactNode;
+  style?: CSSProperties;
 };
 
 const Text: FC<TextProps> = (props) => {

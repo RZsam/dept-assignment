@@ -10,6 +10,10 @@ import { OptionType } from 'components/select/select';
 
 const navbarCss = {
   container: css({
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
     backgroundColor: theme.colors.background.black,
     padding: `${theme.spacing(6)}px ${theme.spacing(7)}px`,
     transition: '300ms',
@@ -17,6 +21,7 @@ const navbarCss = {
     display: 'flex',
     justifyContent: 'space-between',
     flexWrap: 'wrap',
+    zIndex: 10,
   }),
   linkContainer: css({
     display: 'flex',

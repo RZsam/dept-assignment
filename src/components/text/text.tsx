@@ -12,27 +12,24 @@ const StyledP = styled.p<StyledPProps>((props) => ({
     : props.theme.colors.text.black,
   margin: 0,
   ...(props?.underlineOnHover && {
-    display: 'inline-block',
-    position: 'relative',
-    '&:after': {
-      content: '""',
-      position: 'absolute',
-      width: '100%',
-      transform: 'scaleX(0)',
-      height: 1,
-      bottom: 0,
-      left: 0,
-      backgroundColor: props?.color
+    display: 'inline',
+    textDecoration: 'none',
+    backgroundImage: `linear-gradient(${
+      props?.color
         ? props.theme.colors.text[props?.color]
-        : props.theme.colors.text.black,
-      transformOrigin: 'bottom right',
-      transition: 'transform 0.25s ease-out',
-    },
+        : props.theme.colors.text.black
+    },${
+      props?.color
+        ? props.theme.colors.text[props?.color]
+        : props.theme.colors.text.black
+    })`,
+    backgroundPosition: '100% 100%',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: '0 1px',
+    transition: 'background-size .3s',
     '&:hover': {
-      '&:after': {
-        transform: 'scaleX(1)',
-        transformOrigin: 'bottom left',
-      },
+      backgroundSize: '100% 1px',
+      backgroundPosition: '0 100%',
     },
   }),
 }));

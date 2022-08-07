@@ -9,7 +9,6 @@ const bannerCss = {
   container: css({
     width: '100%',
     height: 628,
-    marginTop: 120,
     position: 'relative',
     overflow: 'hidden',
   }),
@@ -17,7 +16,6 @@ const bannerCss = {
     position: 'absolute',
     bottom: theme.spacing(10.5),
     left: theme.spacing(7),
-    width: '35%',
     zIndex: 2,
   }),
   bannerOverlay: css({
@@ -42,7 +40,7 @@ const bannerCss = {
   }),
 };
 const defaultStyle = {
-  transition: `opacity 300ms ease-in-out`,
+  transition: `opacity 200ms ease-in-out`,
   opacity: 0,
 };
 const textDefaultStyle = {
@@ -63,11 +61,13 @@ const textTransitionStyles = {
   exited: {},
   unmounted: {},
 };
-type BannerProps = {
+type CardProps = {
   text: ReactNode;
+  imgUrl: string;
+  height?: number;
 };
 
-const Banner: FC<BannerProps> = ({ text }) => {
+const Banner: FC<CardProps> = ({ text, imgUrl, height }) => {
   const [isLoaded, setIsloaded] = useState(false);
 
   const handleContentVisible = () => {
@@ -75,44 +75,47 @@ const Banner: FC<BannerProps> = ({ text }) => {
   };
 
   return (
-    <div>
-      <div css={bannerCss.container}>
-        <LazyLoad
-          offsetVertical={500}
-          onContentVisible={handleContentVisible}
-          css={bannerCss.img}
-        >
-          <>
-            <Transition in={isLoaded} appear timeout={0}>
-              {(state) => (
-                <img
-                  css={bannerCss.img}
-                  src="https://s3-alpha-sig.figma.com/img/d144/e347/ca2df6a6b07764f9c1fd0656877bdb26?Expires=1660521600&Signature=MPNl0I5KZdJwDCwO~smvAzwDUo69IFfNIDGlgR0DmC4ijQcVlzpV1tTKexlE3vlyjW5Vcaltez93foE0mIFlLXXMv0FshIAg1S-DQ7WizQyIG0xIFx5Qw35RJ9kFRNxb6monNUSgsFRIyJ-UqellmkodtewQtaVamWPmH2uIPGYpzh-91DI7h2OdOY1kK0o2Acnw0RExrAWf4TaoQ4qDsRcuhMiE1W6EYnF6PaL2zhYL2whnIQGEKwL3vOjyPOJ5m2~Q5sTbjubapamUrj2qrRhPvubeKLa9EmxpYXYjofitlmA39caT~64ocXNpdkjKQw-sP4ZDTI1NK~95HQwQIQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
-                  alt="banner"
-                  style={{
-                    ...defaultStyle,
-                    ...transitionStyles[state],
-                  }}
-                />
-              )}
-            </Transition>
-            <div css={bannerCss.bannerOverlay} />
-            <Transition in={isLoaded} appear timeout={0}>
-              {(state) => (
-                <div
-                  css={bannerCss.descirptionContainer}
-                  style={{
-                    ...textDefaultStyle,
-                    ...textTransitionStyles[state],
-                  }}
-                >
-                  {text}
-                </div>
-              )}
-            </Transition>
-          </>
-        </LazyLoad>
-      </div>
+    <div
+      css={bannerCss.container}
+      style={{
+        height: height || 568,
+      }}
+    >
+      <LazyLoad
+        offsetVertical={700}
+        onContentVisible={handleContentVisible}
+        css={bannerCss.img}
+      >
+        <>
+          <Transition in={isLoaded} appear timeout={0}>
+            {(state) => (
+              <img
+                css={bannerCss.img}
+                src={imgUrl}
+                alt="banner"
+                style={{
+                  ...defaultStyle,
+                  ...transitionStyles[state],
+                }}
+              />
+            )}
+          </Transition>
+          <div css={bannerCss.bannerOverlay} />
+          <Transition in={isLoaded} appear timeout={0}>
+            {(state) => (
+              <div
+                css={bannerCss.descirptionContainer}
+                style={{
+                  ...textDefaultStyle,
+                  ...textTransitionStyles[state],
+                }}
+              >
+                {text}
+              </div>
+            )}
+          </Transition>
+        </>
+      </LazyLoad>
     </div>
   );
 };

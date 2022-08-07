@@ -206,7 +206,7 @@ const Navbar = () => {
             {links
               .filter((link) => link.href !== currentRoute.current)
               .map((link) => (
-                <a href={link.href} css={navbarCss.link} key={link.label}>
+                <a href={link.href} css={navbarCss.link} key={link.href}>
                   <Text color="white" underlineOnHover>
                     {link.label}
                   </Text>
@@ -258,6 +258,7 @@ const Navbar = () => {
             timeout={100}
             unmountOnExit
             classNames="fade"
+            key={link.href}
           >
             {(state) => (
               <div

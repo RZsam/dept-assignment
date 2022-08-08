@@ -12,7 +12,7 @@ const postsCss = {
     flexBasis: '50%',
   }),
   wideContainer: css({
-    flexBasis: '66.6%',
+    flexBasis: '67%',
   }),
   descirption: css({
     fontSize: 48,

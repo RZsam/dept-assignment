@@ -5,7 +5,7 @@ import LazyLoad from 'react-lazy-load';
 import { Transition } from 'react-transition-group';
 import theme from 'theme';
 
-const bannerCss = {
+const cardCss = {
   container: css({
     width: '100%',
     height: 628,
@@ -76,21 +76,23 @@ const Banner: FC<CardProps> = ({ text, imgUrl, height }) => {
 
   return (
     <div
-      css={bannerCss.container}
+      css={cardCss.container}
       style={{
         height: height || 568,
       }}
     >
       <LazyLoad
-        offsetVertical={700}
+        offsetVertical={100}
         onContentVisible={handleContentVisible}
-        css={bannerCss.img}
+        css={cardCss.img}
+        debounce={false}
+        throttle={100}
       >
         <>
           <Transition in={isLoaded} appear timeout={0}>
             {(state) => (
               <img
-                css={bannerCss.img}
+                css={cardCss.img}
                 src={imgUrl}
                 alt="banner"
                 style={{
@@ -100,11 +102,11 @@ const Banner: FC<CardProps> = ({ text, imgUrl, height }) => {
               />
             )}
           </Transition>
-          <div css={bannerCss.bannerOverlay} />
+          <div css={cardCss.bannerOverlay} />
           <Transition in={isLoaded} appear timeout={0}>
             {(state) => (
               <div
-                css={bannerCss.descirptionContainer}
+                css={cardCss.descirptionContainer}
                 style={{
                   ...textDefaultStyle,
                   ...textTransitionStyles[state],

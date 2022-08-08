@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { useQuery } from '@tanstack/react-query';
-import getData, { Post } from 'api/get-data';
+import { getPost, Post } from 'api/get-data';
 import Text from 'components/text';
 import CardPost from '../card-post';
 import ListPost from '../list-post';
@@ -27,7 +27,7 @@ const renderPost = (post: Post) => {
 };
 
 const Posts = () => {
-  const { isLoading, error, data } = useQuery(['repoData'], getData);
+  const { isLoading, error, data } = useQuery(['repoData'], getPost);
 
   if (isLoading) {
     return <Text>Loading...</Text>;

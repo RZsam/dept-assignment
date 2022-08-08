@@ -16,7 +16,7 @@ export type Qoute = {
 };
 
 export type Post = List | Card | Qoute;
-const data: Post[] = [
+const posts: Post[] = [
   {
     type: 'card',
     client: 'BOL.COM',
@@ -179,6 +179,78 @@ const data: Post[] = [
   },
 ];
 
-const getData: () => Promise<Post[]> = () => Promise.resolve(data);
+type Client = {
+  description: string;
+  clients: { logoUrl: string; alt: string }[];
+};
+const clients: Client = {
+  description:
+    'We value a great working relationship with our clients above all else. It’s why they often come to our parties. It’s also why we’re able to challenge and inspire them to reach for the stars.',
+  clients: [
+    {
+      logoUrl:
+        'https://s3-alpha-sig.figma.com/img/08f0/5880/690bec9b107da8daf364f1012c7ac9fd?Expires=1661126400&Signature=JWhLjX9dwX-tCcDtMYiMzdYZTC9cqEaQlDspKhihxp1BxWYnLFHNUAt-i2OoUjdjobr1B5SjriGK1bMY3wznxThe3rdAAhoK1i8va-IxqB0PXbmElOeMZFV0yIEZuuXaNGAtiexwyKljV3RiqCuyRqBGDY0EVqXUkQ8yaxYiRrfYRTrS9ZxmCRrj5q5-qhON7vE03ktCnwiRKGWidID9FCmhzbwTq9sVdzAg-wvSn09s7~9BrrAIt0Z8fOipv0UGbygI46notRGPE14ytYufAMRvGxps~0YYNCL7z4fVKYQYxU944THXtFC6X~vvKQ7QDReK6uEKMGugBUQLsVMD4A__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
+      alt: 'Goolge',
+    },
+    {
+      logoUrl:
+        'https://s3-alpha-sig.figma.com/img/f767/9b69/12e6beb6be464b2c142475f153c0e2d1?Expires=1661126400&Signature=FEJ1r536NRuTvJN1mqAThtYG6zO8t99FY4g4gN59rfMnRNa4iXbdeGG2t~aGg1TxnS81kzcun~gdoGsVYPTG6rU1DKicy3BcUXgLEvrX5LgDU1~P1VzZB6r2oSyui6lDzsTSiXlfFLQ12ata1-xK3vXclXfpH6a-Y8UqRS0k3OmQSFLHwXTeUhxgUNkwrgR0JU-tMuSATG6Z4my5V2XrnHe2HtlzY5kF6AM0q4hWUnFmlAbCMLWyXOVOv25L5GNL5rNWHgc77RcjscWkIZIQRDGvq4dW0iNRaNWeqVVeE62ELIMtPvujVqe9ojnP7pkC4JJK7Cn9YXoANJfcKgh1Hg__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
+      alt: "LEVI's",
+    },
+    {
+      logoUrl:
+        'https://s3-alpha-sig.figma.com/img/8458/801d/0396fa45ca80e1c7031c6cd79ad19d20?Expires=1661126400&Signature=gFFZNSmneU4JzO33108sUFgGlfw-7j4Zt5v1S0~sYIP6wH6tLBPm9m5vMskSHKHdOl9rhaGS1nUZqAHXF95kOVm6uo~3VldNA0KoGgb8GJQxKoHwYJWzYvBgjbGZxHUZI~2bVw6IsoedhI3WNjBp2Mn9OUQ0Mgkqw9lQDtR3LCx4K0VDOYgGp6N46nNRUl5FG3U2RkY89QAXta7s3dwH8FOlRiVmGoLoQWxBk9kfUU86nhEseKHsgyAUApKzY1kl1CA01tUQxoEmLsAe2WuXytxJsnydL-yOVqYkN5hjtDrMS0lwEezrGCVEyP~mxhz8ub~lGoWHsiGwDfLJ42nteA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
+      alt: 'NETFLIX',
+    },
+    {
+      logoUrl:
+        'https://s3-alpha-sig.figma.com/img/f8a1/2431/be6c9981f24cf22648916f866913a1f1?Expires=1661126400&Signature=JtAojLwC-vxVazsWzKDAO9dA1gQwZpHb2nWrsSm5DBVcwsHMJiV~UjQn5gYoQe~dBd1r0YAJAOEa0sLwtF2KZkDWcMAXc~d~Gfm79E~yuzazLctl5ScwiBUdTpnyLFVkEtB80WSbnVgQw7OyMnf9dhkiylKF-CQm3KGFn1vz3fIU0jZV0AiTiAf1ENfoRR-R42PKJZNh3yYDcGIGqmSR5KYjFTko~WXCqwVfiwfKE8SPU5vpYubSm9PGmlgcEcl3VFYva81oczcuBXKOdGvjfcGxJe05vwJTIcHH10QL-uBpMeZbBdJZcEhDr~JgKDinXCQ0fR6KTTxIkpfsP8Vmbg__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
+      alt: 'Spotify',
+    },
+    {
+      logoUrl:
+        'https://s3-alpha-sig.figma.com/img/dc6f/f96f/d9fe63ccf1ec185cd1f0404d2a25073a?Expires=1661126400&Signature=YWCisqNsnmSssL7Qa8QyU42s1kctrjbLq4inVm-6kwPxlQIMPNpjK7uegb127ebEINId-rQKhNc3hIneH70DG8HwlgEQy4~CTbiCJwYAV~cbLaEQ~P~-sINZyy44e6rlRl4GoiYotZXGbJO1IxtrjUFl6mwTKEycuahxmyF-et03KUAzl83ouFwVi2Tmd2Uz29J7mKbKetGD6U1aeSU~fKRbYXRYbOH6K7WPWuXdRS5rfhjsPBE281U1ZkY1R2gpacLiDo5GWKwkcpiM8aALCOH7f5qutxKETGVS6Ic-2fo1HU1mWP3IAqzfMip-Dny4b2vfJq2cD0v5ZWoxmGVROQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
+      alt: 'Patagonia',
+    },
+    {
+      logoUrl:
+        'https://s3-alpha-sig.figma.com/img/7247/ee65/0e1d8894602f0d95344468f7fc8624a2?Expires=1661126400&Signature=MCbsXHias-ISjW9SIszKvYpN3JoQou06s6BiJ7xd4UTxDwFyiUY9e1ckipeU7u4TkmbFdm3RwWfmChJwBHMXr43l1sWpttIAonUs--I8ZHh7E7LegEGFsZQ39jS4Lts3b5yollFKhdHIHQDRk6~AlEn9U4mGd1uutQ03GHwgaMnq~HxCKE4EAPOHjEJfvRgmyUsxP-McfCktSe1x2UOW3qeuD1j7htQGkIlmBRFfg4-6iO1N1WpeLSDLxEWKcGiqrpcrgl4s6KUYU-qa9SXLaU4mqR4FAFxNJdooe-XEUrMf8RhEIUHEJHGw0Vbqz1RquTufMNHaaVMDzuDN1i-jyw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
+      alt: 'Fujitsu',
+    },
+    {
+      logoUrl:
+        'https://s3-alpha-sig.figma.com/img/079d/8082/c5752018c3a424b376abfba8f2d477fb?Expires=1661126400&Signature=FygHiG6CwY7n7hxs~pFV1QyFuBraa9sbw5iYlerCDI70D9NB4JMotQbYNzvEK89nGsk1KETupGLZd~0dbQIbMyXspgWjpASgiwCZAnUlyblfvzZ9s0wEArNJf948n3ccqjxgD4SWeJtfs-C~zbqxeaPrBffi92bCOmnYUDYy9LVmZBsbAW7NM2BqAgeEG8D-lgXakSzWAWp7YhY5bYdDlHvPOf-NfHJ32lFD9U0A7d5ermi9zjzX7CJUs6letDlhuB4dXYe08EAsjNqpCUriIGarJN5aeJ-4iV29ErjV6v3GEdUIuuWNNbWvHYeXtvwgU0d0x5FosuzlOLa30~gMcQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
+      alt: 'Adyen',
+    },
+    {
+      logoUrl:
+        'https://s3-alpha-sig.figma.com/img/3e2e/44c9/617c7773c93bd9230727ec0bbd80d561?Expires=1661126400&Signature=XWcia~O4g-VowOt1529aUc6Gkz42tiPNHw21aU4uZ1BkjxRV~1BMPC8i19koJDKlPOAOqFNbbHqO5H~jZauV41ZssQhWR3Pvu~nPJlTXZX8YC4FheZQ3SMD2niHIb2zcrJ0O~ei-S7K6KpBDjEq9RyTBhQVyov2F1ps-P~xGAksi2HTqM9CTKSu~gnj1Aru7tOMAdRFOOVOfHnXPcKZgOlm4MXkx2zVx3eFVKDFS5gK8~OxMjtG1VvrwcVQRGUqux2lgDT0Uuk1-efxjYY8wYwqi-VYJyTaym4zoewfqjBT95~rgbTZNaUpChDaMLSgD7Q-KIbHtymV2~HgSfdiwZw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
+      alt: 'Audi',
+    },
+    {
+      logoUrl:
+        'https://s3-alpha-sig.figma.com/img/e5f3/da26/d10aa857015f280e34b7f17ba57b6ddd?Expires=1661126400&Signature=KjpB2GG-NvZbyWgiaXR-CzJr3DdgocV5~4NifDTKQDmKVar02BJNC-JKDQ~eftpQFM5JEaRzOG7GfPSZbbVERdYvFosPtKYTo7NgWK2rrSMYUD27rgj29bLFSxlkg9sqpUw9Ygtk4t5g-r03RCL5~MZ9eshP9IW0f73CDgb-VtGOI73TSTiXn8G1-0QFSq-NNYlEVp9zAeT6S~J5k0Z-YBE~v6x13tCUf6NM8WNDdaEIbSJcAh8WUo0uWTnppGkSjM6IWw1BIp7sekm0emmcovJbLQznLssB1r3kSSgety5m0AVPUBQsqAkRbwmwwcMKEkDxxYYI3Zj5fPHoQ8-NAA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
+      alt: 'Triumph',
+    },
+    {
+      logoUrl:
+        'https://s3-alpha-sig.figma.com/img/7e4d/9945/0811c99caf31fcb17763879ca4f8911d?Expires=1661126400&Signature=BOS4xcqRnGCpmURqT19LQs7RBji06wMF3XyCxlOWlFAz3QjVZRHUqTIqPYCk9zEeXGDivjpGDDDASJrnQkjv6kZhdVoVucJL3Mghpnx9KVE5pzwNLZLJKeDs-bDMUW5wo-FEhfNQkOYMM6FYxK4dO67Y0~65r4BYdOze--Bq9sb2igzwNoLa-JDYDLR-dxIqrnSI6nWvj~k~KMpqWoU2pE7WxnQj9OuMG-WSP0DJctc0sDrQQ2aKdh84~hq479B2g1yvydt~EkxkselrYUQLpME3a37TJcesa1nkRyhNP19CKl8Rb1mzOqT6fUXE8k0SL65glHnG~LVWckzAO7rB7Q__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
+      alt: 'Tesla',
+    },
+    {
+      logoUrl:
+        'https://s3-alpha-sig.figma.com/img/5854/ae2a/f1bef8bca42e8f609b37d34c1327fce3?Expires=1661126400&Signature=OFC3H~yGlT0BU-obtMhjVFFNVL5fGNclxrdIePTqw0hVRmNrJBjNdrHLk0lZr--m00NTSWXppyOxEnAE8WO6oJkaWWvV77r0ve6YZOqQ4MN3d-Ti72FtPWaZ-8OYh4GWW3proMcgJpyapJ8ZPWmNbqSKJNNnoEOlkXMogSSdInXSFkb4FwM1iHmt-yIMBASJlpjLsuWCHGJu-el7P7L~VMOqZblz1t6hxfQNjmhNjqceWpAoR3lbD3Kempyg0x~kW1W9QFpLl2hUqWVwsedmAh3uuc0zDvGlqYIqneXO~YborICV81270W1LMRHMYOBhrLvg9a8IKBDl5QFhUFpwWQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
+      alt: 'asos',
+    },
+    {
+      logoUrl:
+        'https://s3-alpha-sig.figma.com/img/5e7d/bfc5/6f5f55485853ed8694885e216e7b755e?Expires=1661126400&Signature=Zn5tkeWUx-ECG1ShEqdXIqCmOe4KSP-VUWajlfqGRXy3JAxdS1YH3DbdJAdd5E7rR4RuR0mPP2brux4anqL~zVa2cMegSos7ynmcJ7v0hL6vb3MebzCvqVvVt5F1LAWbrJOJ8FDHTMnBYKJ3GLeJscAU-MCz8Zqz6X4md6N8AQX4Z07vvKJaaFMQAxQCtT9Je0sUkXK4x52~4FLDZj8J0q68Qt99zXHrwlTzCdgUgCyueHqXe1acjmV~h-VDxkVxAWLTpNBL3vsZLAN3SqP3qlIkj273j0bl0ugb6G8BKlh0HZtliIfV8gFROYYP58i2ORjcRovK9ADw8YYff1hHXQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
+      alt: 'TakeAway.com',
+    },
+  ],
+};
 
-export default getData;
+const getPost: () => Promise<Post[]> = () => Promise.resolve(posts);
+const getClient: () => Promise<Client> = () => Promise.resolve(clients);
+
+export { getPost, getClient };

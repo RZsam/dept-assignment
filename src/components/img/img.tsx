@@ -43,11 +43,13 @@ const Img: FC<ImgProps> = (props) => {
 
   return (
     <LazyLoad
-      offsetVertical={500}
+      offsetVertical={100}
       onContentVisible={handleContentVisible}
       css={imgCss.img}
+      debounce={false}
+      throttle={100}
     >
-      <Transition in={isLoaded} appear timeout={0}>
+      <Transition in={isLoaded} appear timeout={200}>
         {(state) => (
           <img
             css={imgCss.img}

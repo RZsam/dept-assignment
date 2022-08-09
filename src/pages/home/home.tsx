@@ -3,6 +3,7 @@ import Banner from './banner';
 import Navbar from 'components/navbar';
 import Posts from './posts';
 import Clients from './cleints';
+import CommentSection from './comment-section';
 
 const Home = () => {
   return (
@@ -11,6 +12,7 @@ const Home = () => {
       <Banner />
       <Posts />
       <Clients />
+      <CommentSection />
     </div>
   );
 };

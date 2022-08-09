@@ -40,7 +40,7 @@ const cardCss = {
   }),
 };
 const defaultStyle = {
-  transition: `opacity 200ms ease-in-out`,
+  transition: `opacity 300ms ease-in-out`,
   opacity: 0,
 };
 const textDefaultStyle = {
@@ -82,7 +82,7 @@ const Banner: FC<CardProps> = ({ text, imgUrl, height }) => {
       }}
     >
       <LazyLoad
-        offsetVertical={100}
+        offsetVertical={200}
         onContentVisible={handleContentVisible}
         css={cardCss.img}
         debounce={false}

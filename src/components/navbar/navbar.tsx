@@ -4,7 +4,7 @@ import { css } from '@emotion/react';
 import Text from 'components/text';
 import { Clear, MoreHoriz, PlayArrow } from '@emotion-icons/material';
 import { useEffect, useState, useRef } from 'react';
-import { CSSTransition, Transition } from 'react-transition-group';
+import { Transition } from 'react-transition-group';
 import Select from 'components/select';
 import { OptionType } from 'components/select/select';
 
@@ -191,7 +191,7 @@ const Navbar = () => {
         in={!isOpen}
         exit
         appear
-        timeout={100}
+        timeout={200}
         unmountOnExit
         classNames="fade"
       >
@@ -251,7 +251,7 @@ const Navbar = () => {
           )}
         </Transition>
         {links.map((link) => (
-          <CSSTransition
+          <Transition
             in={isOpen}
             exit
             appear
@@ -277,7 +277,7 @@ const Navbar = () => {
                 </a>
               </div>
             )}
-          </CSSTransition>
+          </Transition>
         ))}
       </div>
     </div>

@@ -4,6 +4,7 @@ import Navbar from 'components/navbar';
 import Posts from './posts';
 import Clients from './cleints';
 import CommentSection from './comment-section';
+import Footer from './footer';
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
       <Posts />
       <Clients />
       <CommentSection />
+      <Footer />
     </div>
   );
 };

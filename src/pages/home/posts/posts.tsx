@@ -7,11 +7,26 @@ import CardPost from '../card-post';
 import ListPost from '../list-post';
 import QoutePost from '../qoute-post';
 import { v4 as uuidv4 } from 'uuid';
+import theme from 'theme';
 
 const postsCss = {
-  container: css({
+  container: css({}),
+  postContainer: css({
     display: 'flex',
     flexWrap: 'wrap',
+  }),
+  filterContainer: css({
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: theme.spacing(4),
+    fontSize: 26,
+    p: css({
+      display: 'inline',
+    }),
+  }),
+  borderedText: css({
+    borderColor: theme.colors.text.black,
+    borderBottom: '1px solid',
   }),
 };
 const renderPost = (post: Post) => {
@@ -37,7 +52,21 @@ const Posts = () => {
   }
 
   return (
-    <div css={postsCss.container}>{data?.map((post) => renderPost(post))}</div>
+    <div css={postsCss.container}>
+      <div css={postsCss.filterContainer}>
+        <div>
+          <Text color="lightGrey"> Show me </Text>
+          <Text css={postsCss.borderedText}>all work</Text>
+        </div>
+        <div>
+          <Text color="lightGrey">in </Text>
+          <Text css={postsCss.borderedText}>all industries</Text>
+        </div>
+      </div>
+      <div css={postsCss.postContainer}>
+        {data?.map((post) => renderPost(post))}
+      </div>
+    </div>
   );
 };
 

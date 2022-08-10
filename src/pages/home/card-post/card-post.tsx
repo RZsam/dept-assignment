@@ -6,20 +6,35 @@ import Card from 'components/card';
 import theme from 'theme';
 import { Adjust } from '@emotion-icons/material/Adjust';
 import { FC } from 'react';
+import mq, { getMaxWidthString } from 'theme/media-queries';
+import useMediaQuery from 'hooks/useMediaQuery';
 
 const postsCss = {
   container: css({
     flexBasis: '50%',
+    [mq('xs')]: css({
+      flexBasis: '100%',
+    }),
   }),
   wideContainer: css({
     flexBasis: '67%',
+    [mq('xs')]: css({
+      flexBasis: '100%',
+    }),
   }),
   descirption: css({
     fontSize: 48,
     width: '75%',
+    [mq('xs')]: css({
+      fontSize: 26,
+      width: '80%',
+    }),
   }),
   title: css({
     marginBottom: theme.spacing(3),
+    [mq('xs')]: css({
+      marginBottom: theme.spacing(2),
+    }),
   }),
   readMoreContainer: css({
     display: 'inline-flex',
@@ -31,11 +46,14 @@ const postsCss = {
     display: 'inline-block',
   }),
 };
+
 type CardProps = {
   post: CardType;
 };
 const Posts: FC<CardProps> = (props) => {
   const { post } = props;
+  const isXs = useMediaQuery(getMaxWidthString('xs'));
+
   return (
     <div css={post?.wide ? postsCss.wideContainer : postsCss.container}>
       <Card
@@ -44,19 +62,26 @@ const Posts: FC<CardProps> = (props) => {
             <Text color="white" css={postsCss.title}>
               {post?.client}
             </Text>
-            <a href="/" tabIndex={-1}>
-              <Text color="white" css={postsCss.descirption} underlineOnHover>
+            {/* not to focus in desktop mode */}
+            <a href="/" {...(!isXs && { tabIndex: -1 })}>
+              <Text
+                color="white"
+                css={postsCss.descirption}
+                underlineOnHover={!isXs}
+              >
                 {post?.description}
               </Text>
             </a>
-            <div>
-              <a href="/" css={postsCss.readMoreContainer}>
-                <Adjust color="white" size={12} />
-                <Text color="white" css={postsCss.readMore}>
-                  Read more
-                </Text>
-              </a>
-            </div>
+            {!isXs && (
+              <div>
+                <a href="/" css={postsCss.readMoreContainer}>
+                  <Adjust color="white" size={12} />
+                  <Text color="white" css={postsCss.readMore}>
+                    Read more
+                  </Text>
+                </a>
+              </div>
+            )}
           </div>
         }
         imgUrl={post?.imgUrl as string}

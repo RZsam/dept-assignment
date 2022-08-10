@@ -4,6 +4,7 @@ import { FC, ReactNode, useState } from 'react';
 import LazyLoad from 'react-lazy-load';
 import { Transition } from 'react-transition-group';
 import theme from 'theme';
+import mq from 'theme/media-queries';
 
 const cardCss = {
   container: css({
@@ -11,12 +12,19 @@ const cardCss = {
     height: 628,
     position: 'relative',
     overflow: 'hidden',
+    [mq('xs')]: css({
+      height: 484,
+    }),
   }),
   descirptionContainer: css({
     position: 'absolute',
     bottom: theme.spacing(10.5),
     left: theme.spacing(7),
     zIndex: 2,
+    [mq('xs')]: css({
+      bottom: theme.spacing(3),
+      left: theme.spacing(3),
+    }),
   }),
   bannerOverlay: css({
     position: 'absolute',
@@ -77,9 +85,9 @@ const Banner: FC<CardProps> = ({ text, imgUrl, height }) => {
   return (
     <div
       css={cardCss.container}
-      style={{
-        height: height || 568,
-      }}
+      // style={{
+      //   height: height || 568,
+      // }}
     >
       <LazyLoad
         offsetVertical={200}

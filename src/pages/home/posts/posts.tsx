@@ -8,6 +8,8 @@ import ListPost from '../list-post';
 import QoutePost from '../qoute-post';
 import { v4 as uuidv4 } from 'uuid';
 import theme from 'theme';
+import mq, { getMaxWidthString } from 'theme/media-queries';
+import useMediaQuery from 'hooks/useMediaQuery';
 
 const postsCss = {
   container: css({}),
@@ -19,16 +21,25 @@ const postsCss = {
     display: 'flex',
     justifyContent: 'space-between',
     padding: theme.spacing(4),
-    fontSize: 26,
     p: css({
       display: 'inline',
+    }),
+    [mq('xs')]: css({
+      fontSize: 16,
+      padding: `${theme.spacing(4)}px ${theme.spacing(2)}px`,
+      flexDirection: 'row-reverse',
+      backgroundColor: theme.colors.background.black,
     }),
   }),
   borderedText: css({
     borderColor: theme.colors.text.black,
     borderBottom: '1px solid',
+    [mq('xs')]: css({
+      border: 'none',
+    }),
   }),
 };
+
 const renderPost = (post: Post) => {
   const id = uuidv4();
   switch (post.type) {
@@ -44,6 +55,8 @@ const renderPost = (post: Post) => {
 const Posts = () => {
   const { isLoading, error, data } = useQuery(['repoData'], getPost);
 
+  const isXs = useMediaQuery(getMaxWidthString('xs'));
+
   if (isLoading) {
     return <Text>Loading...</Text>;
   }
@@ -56,11 +69,15 @@ const Posts = () => {
       <div css={postsCss.filterContainer}>
         <div>
           <Text color="lightGrey"> Show me </Text>
-          <Text css={postsCss.borderedText}>all work</Text>
+          <Text color={isXs ? 'white' : 'black'} css={postsCss.borderedText}>
+            all work
+          </Text>
         </div>
         <div>
           <Text color="lightGrey">in </Text>
-          <Text css={postsCss.borderedText}>all industries</Text>
+          <Text color={isXs ? 'white' : 'black'} css={postsCss.borderedText}>
+            all industries
+          </Text>
         </div>
       </div>
       <div css={postsCss.postContainer}>

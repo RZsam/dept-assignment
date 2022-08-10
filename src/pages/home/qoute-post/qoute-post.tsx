@@ -6,6 +6,7 @@ import LazyLoad from 'react-lazy-load';
 import { Transition } from 'react-transition-group';
 import theme from 'theme';
 import Text from 'components/text';
+import mq from 'theme/media-queries';
 
 type QoutePost = {
   post: Qoute;
@@ -20,6 +21,9 @@ const qouteCss = {
     flexBasis: '100%',
     padding: `${theme.spacing(11.5)}px ${theme.spacing(8)}px`,
     boxSizing: 'border-box',
+    [mq('xs')]: css({
+      padding: `${theme.spacing(11.5)}px ${theme.spacing(4)}px`,
+    }),
   }),
   description: css({
     marginBottom: `${theme.spacing(4)}px`,

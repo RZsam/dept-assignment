@@ -7,6 +7,8 @@ import { Transition } from 'react-transition-group';
 import theme from 'theme';
 import Text from 'components/text';
 import { Adjust } from '@emotion-icons/material/Adjust';
+import mq, { getMaxWidthString } from 'theme/media-queries';
+import useMediaQuery from 'hooks/useMediaQuery';
 
 type ListPostProps = {
   post: List;
@@ -21,9 +23,17 @@ const listCss = {
     flexBasis: '33%',
     padding: `${theme.spacing(9)}px ${theme.spacing(4)}px`,
     boxSizing: 'border-box',
+    [mq('xs')]: css({
+      flexBasis: '100%',
+      padding: theme.spacing(3),
+    }),
   }),
   description: css({
     margin: `${theme.spacing(1.5)}px 0px `,
+    [mq('xs')]: css({
+      margin: 0,
+      marginTop: theme.spacing(2),
+    }),
   }),
   readMoreContainer: css({
     display: 'inline-flex',
@@ -56,11 +66,12 @@ const transitionStyles = {
 const ListPost: FC<ListPostProps> = (props) => {
   const { post } = props;
   const [isLoaded, setIsloaded] = useState(false);
+  const isXs = useMediaQuery(getMaxWidthString('xs'));
 
   const handleContentVisible = () => {
     setIsloaded(true);
   };
-
+  const list = isXs ? post?.list?.slice(0, 2) : post?.list;
   return (
     <div css={listCss.container}>
       <LazyLoad
@@ -70,13 +81,13 @@ const ListPost: FC<ListPostProps> = (props) => {
         onContentVisible={handleContentVisible}
       >
         <>
-          {post?.list?.map((clientItem, index) => (
+          {list?.map((clientItem, index) => (
             <Transition in={isLoaded} timeout={100 + 70 * index}>
               {(state) => (
                 <div
                   key={index}
                   css={[
-                    index !== (post?.list?.length as number) - 1 &&
+                    index !== (list?.length as number) - 1 &&
                       listCss.clientItemBorder,
                     listCss.clientItem,
                   ]}
@@ -90,12 +101,14 @@ const ListPost: FC<ListPostProps> = (props) => {
                   <Text color="white" css={listCss.description}>
                     {clientItem.description}
                   </Text>
-                  <a href="/" css={listCss.readMoreContainer}>
-                    <Adjust color="white" size={12} />
-                    <Text color="white" css={listCss.readMore}>
-                      Read more
-                    </Text>
-                  </a>
+                  {!isXs && (
+                    <a href="/" css={listCss.readMoreContainer}>
+                      <Adjust color="white" size={12} />
+                      <Text color="white" css={listCss.readMore}>
+                        Read more
+                      </Text>
+                    </a>
+                  )}
                 </div>
               )}
             </Transition>

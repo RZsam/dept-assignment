@@ -24,7 +24,21 @@ const getMaxWidthString = (n: mediaQueryKeys) => {
 
   return result as string;
 };
+const getMinWidthString = (n: mediaQueryKeys) => {
+  const bpArray = Object.keys(breakpoints).map((key) => [
+    key,
+    breakpoints[key as mediaQueryKeys],
+  ]);
+
+  const [result] = bpArray.reduce((acc, [name, size]) => {
+    if (n === name) return [...acc, `(min-width: ${size}px)`];
+    return acc;
+  }, []);
+
+  return result as string;
+};
 const mq = (n: mediaQueryKeys) => `@media ${getMaxWidthString(n)}`;
+const minWidthQuery = (n: mediaQueryKeys) => `@media ${getMinWidthString(n)}`;
 
 export default mq;
-export { getMaxWidthString };
+export { getMaxWidthString, getMinWidthString, minWidthQuery };

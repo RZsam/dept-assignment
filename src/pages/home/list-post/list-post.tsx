@@ -97,7 +97,10 @@ const ListPost: FC<ListPostProps> = (props) => {
                     overflow: 'hidden',
                   }}
                 >
-                  <Text color="white">{clientItem.client}</Text>
+                  {/* only have focus in xs size */}
+                  <a href="/" {...(!isXs && { tabIndex: -1 })}>
+                    <Text color="white">{clientItem.client}</Text>
+                  </a>
                   <Text color="white" css={listCss.description}>
                     {clientItem.description}
                   </Text>

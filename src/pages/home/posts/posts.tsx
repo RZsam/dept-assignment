@@ -24,7 +24,7 @@ const postsCss = {
     p: css({
       display: 'inline',
     }),
-    [mq('xs')]: css({
+    [mq('md')]: css({
       fontSize: 16,
       padding: `${theme.spacing(4)}px ${theme.spacing(2)}px`,
       flexDirection: 'row-reverse',
@@ -34,7 +34,7 @@ const postsCss = {
   borderedText: css({
     borderColor: theme.colors.text.black,
     borderBottom: '1px solid',
-    [mq('xs')]: css({
+    [mq('md')]: css({
       border: 'none',
     }),
   }),
@@ -55,7 +55,7 @@ const renderPost = (post: Post) => {
 const Posts = () => {
   const { isLoading, error, data } = useQuery(['repoData'], getPost);
 
-  const isXs = useMediaQuery(getMaxWidthString('xs'));
+  const isMd = useMediaQuery(getMaxWidthString('md'));
 
   if (isLoading) {
     return <Text>Loading...</Text>;
@@ -69,13 +69,13 @@ const Posts = () => {
       <div css={postsCss.filterContainer}>
         <div>
           <Text color="lightGrey"> Show me </Text>
-          <Text color={isXs ? 'white' : 'black'} css={postsCss.borderedText}>
+          <Text color={isMd ? 'white' : 'black'} css={postsCss.borderedText}>
             all work
           </Text>
         </div>
         <div>
           <Text color="lightGrey">in </Text>
-          <Text color={isXs ? 'white' : 'black'} css={postsCss.borderedText}>
+          <Text color={isMd ? 'white' : 'black'} css={postsCss.borderedText}>
             all industries
           </Text>
         </div>

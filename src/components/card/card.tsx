@@ -15,7 +15,7 @@ const cardCss = {
   }),
   descirptionContainer: css({
     position: 'absolute',
-    bottom: theme.spacing(10.5),
+    bottom: theme.spacing(4),
     left: theme.spacing(7),
     zIndex: 2,
     [mq('xs')]: css({

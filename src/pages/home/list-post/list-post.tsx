@@ -17,20 +17,21 @@ type ListPostProps = {
 const listCss = {
   container: css({
     display: 'flex',
+    justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
     backgroundColor: theme.colors.background.black,
     flexBasis: '33%',
-    padding: `${theme.spacing(9)}px ${theme.spacing(4)}px`,
+    padding: theme.spacing(4),
     boxSizing: 'border-box',
-    [mq('xs')]: css({
+    [mq('md')]: css({
       flexBasis: '100%',
       padding: theme.spacing(3),
     }),
   }),
   description: css({
     margin: `${theme.spacing(1.5)}px 0px `,
-    [mq('xs')]: css({
+    [mq('md')]: css({
       margin: 0,
       marginTop: theme.spacing(2),
     }),
@@ -66,12 +67,12 @@ const transitionStyles = {
 const ListPost: FC<ListPostProps> = (props) => {
   const { post } = props;
   const [isLoaded, setIsloaded] = useState(false);
-  const isXs = useMediaQuery(getMaxWidthString('xs'));
+  const isMd = useMediaQuery(getMaxWidthString('md'));
 
   const handleContentVisible = () => {
     setIsloaded(true);
   };
-  const list = isXs ? post?.list?.slice(0, 2) : post?.list;
+  const list = isMd ? post?.list?.slice(0, 2) : post?.list;
   return (
     <div css={listCss.container}>
       <LazyLoad
@@ -98,13 +99,13 @@ const ListPost: FC<ListPostProps> = (props) => {
                   }}
                 >
                   {/* only have focus in xs size */}
-                  <a href="/" {...(!isXs && { tabIndex: -1 })}>
+                  <a href="/" {...(!isMd && { tabIndex: -1 })}>
                     <Text color="white">{clientItem.client}</Text>
                   </a>
                   <Text color="white" css={listCss.description}>
                     {clientItem.description}
                   </Text>
-                  {!isXs && (
+                  {!isMd && (
                     <a href="/" css={listCss.readMoreContainer}>
                       <Adjust color="white" size={12} />
                       <Text color="white" css={listCss.readMore}>

@@ -13,7 +13,7 @@ const postsCss = {
   container: css({
     flexBasis: '50%',
     height: 568,
-    [mq('xs')]: css({
+    [mq('md')]: css({
       flexBasis: '100%',
       height: 485,
     }),
@@ -22,7 +22,7 @@ const postsCss = {
     flexBasis: '67%',
     height: 568,
 
-    [mq('xs')]: css({
+    [mq('md')]: css({
       flexBasis: '100%',
       height: 485,
     }),
@@ -30,14 +30,14 @@ const postsCss = {
   descirption: css({
     fontSize: 48,
     width: '75%',
-    [mq('xs')]: css({
+    [mq('md')]: css({
       fontSize: 26,
       width: '80%',
     }),
   }),
   title: css({
     marginBottom: theme.spacing(3),
-    [mq('xs')]: css({
+    [mq('md')]: css({
       marginBottom: theme.spacing(2),
     }),
   }),
@@ -57,7 +57,7 @@ type CardProps = {
 };
 const Posts: FC<CardProps> = (props) => {
   const { post } = props;
-  const isXs = useMediaQuery(getMaxWidthString('xs'));
+  const isMd = useMediaQuery(getMaxWidthString('md'));
 
   return (
     <div css={post?.wide ? postsCss.wideContainer : postsCss.container}>
@@ -68,12 +68,12 @@ const Posts: FC<CardProps> = (props) => {
               {post?.client}
             </Text>
             {/* only have focus in xs size */}
-            <a href="/" {...(!isXs && { tabIndex: -1 })}>
+            <a href="/" {...(!isMd && { tabIndex: -1 })}>
               <Text color="white" css={postsCss.descirption} underlineOnHover>
                 {post?.description}
               </Text>
             </a>
-            {!isXs && (
+            {!isMd && (
               <div>
                 <a href="/" css={postsCss.readMoreContainer}>
                   <Adjust color="white" size={12} />

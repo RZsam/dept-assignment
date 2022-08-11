@@ -126,7 +126,7 @@ const deptUrl = 'https://www.deptagency.com';
 
 const Footer = () => {
   const [isLoaded, setIsloaded] = useState(false);
-  const isXs = useMediaQuery(getMaxWidthString('md'));
+  const isMd = useMediaQuery(getMaxWidthString('md'));
 
   const handleContentVisible = () => {
     setIsloaded(true);
@@ -140,7 +140,7 @@ const Footer = () => {
         throttle={100}
       >
         <div css={footerCss.flexContainer}>
-          {!isXs && (
+          {!isMd && (
             <a
               href={deptUrl}
               target="_blank"
@@ -175,7 +175,7 @@ const Footer = () => {
                     </a>
                   ))}
                 </div>
-                {isXs && (
+                {isMd && (
                   <div css={footerCss.linkContainer}>
                     <a href="/" css={footerCss.xsSocialIcon}>
                       <Facebook />
@@ -203,7 +203,7 @@ const Footer = () => {
         <Text color="grey" css={footerCss.detailText}>
           Terms and conditions
         </Text>
-        {!isXs && (
+        {!isMd && (
           <Text color="grey" css={footerCss.lastDetailText}>
             © 2022 Dept Agency
           </Text>

@@ -69,11 +69,7 @@ const Posts: FC<CardProps> = (props) => {
             </Text>
             {/* only have focus in xs size */}
             <a href="/" {...(!isXs && { tabIndex: -1 })}>
-              <Text
-                color="white"
-                css={postsCss.descirption}
-                underlineOnHover={!isXs}
-              >
+              <Text color="white" css={postsCss.descirption} underlineOnHover>
                 {post?.description}
               </Text>
             </a>

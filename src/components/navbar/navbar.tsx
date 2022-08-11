@@ -7,6 +7,8 @@ import { useEffect, useState, useRef } from 'react';
 import { Transition } from 'react-transition-group';
 import Select from 'components/select';
 import { OptionType } from 'components/select/select';
+import mq, { getMaxWidthString } from 'theme/media-queries';
+import useMediaQuery from 'hooks/useMediaQuery';
 
 const navbarCss = {
   container: css({
@@ -22,6 +24,15 @@ const navbarCss = {
     justifyContent: 'space-between',
     flexWrap: 'wrap',
     zIndex: 10,
+    [mq('xs')]: css({
+      padding: `${theme.spacing(2)}px ${theme.spacing(2.5)}px`,
+      backgroundColor: theme.colors.background.white,
+      alignContent: 'flex-start',
+    }),
+  }),
+  blackBG: css({
+    transition: '300ms',
+    backgroundColor: `${theme.colors.background.black} !important`,
   }),
   linkContainer: css({
     display: 'flex',
@@ -57,6 +68,9 @@ const navbarCss = {
   }),
   closeNavbar: css({
     height: 24,
+    [mq('xs')]: css({
+      height: 18,
+    }),
   }),
   openedNavbar: css({
     display: 'flex',
@@ -64,6 +78,9 @@ const navbarCss = {
     flexBasis: '100%',
     alignItems: 'flex-end',
     position: 'relative',
+    [mq('xs')]: css({
+      marginTop: theme.spacing(9),
+    }),
   }),
   openedNavbarLinkContainer: css({
     borderBottom: 'solid 1px',
@@ -78,6 +95,9 @@ const navbarCss = {
     flexGrow: 0,
     display: 'flex',
     alignItems: 'center',
+    [mq('xs')]: css({
+      fontSize: 34,
+    }),
   }),
   selectContainer: css({
     position: 'absolute',
@@ -85,6 +105,10 @@ const navbarCss = {
     top: theme.spacing(2),
     zIndex: 1,
     width: 165,
+  }),
+  menuTextBtn: css({
+    border: 'none',
+    backgroundColor: 'transparent',
   }),
 };
 
@@ -148,6 +172,9 @@ const transitions = {
 
 const deptLogoUrl =
   'https://www.deptagency.com/wp-content/themes/dept/public/logo-light-new.svg';
+const deptDarkLogoUrl =
+  'https://www.deptagency.com/wp-content/themes/dept/public/logo-dark-new.svg';
+
 const deptUrl = 'https://www.deptagency.com';
 
 const Navbar = () => {
@@ -155,6 +182,8 @@ const Navbar = () => {
   const [landen, setLanden] = useState<OptionType>(navBarOptions[0]);
 
   const currentRoute = useRef('');
+
+  const isXs = useMediaQuery(getMaxWidthString('xs'));
 
   const handleOpenNavbar = () => {
     setIsopen((isOpen) => !isOpen);
@@ -176,6 +205,7 @@ const Navbar = () => {
       css={[
         navbarCss.container,
         isOpen ? navbarCss.openNavbar : navbarCss.closeNavbar,
+        isXs && isOpen && navbarCss.blackBG,
       ]}
     >
       <a
@@ -184,72 +214,92 @@ const Navbar = () => {
         rel="noreferrer"
         css={navbarCss.logoLink}
       >
-        <img src={deptLogoUrl} alt="dept logo" />
+        <img
+          src={isXs && !isOpen ? deptDarkLogoUrl : deptLogoUrl}
+          alt="dept logo"
+        />
       </a>
 
-      <Transition
-        in={!isOpen}
-        exit
-        appear
-        timeout={200}
-        unmountOnExit
-        classNames="fade"
-      >
-        {(state) => (
-          <div
-            css={navbarCss.linkContainer}
-            style={{
-              transition: 'all .2s',
-              ...transitions[state],
-            }}
-          >
-            {links
-              .filter((link) => link.href !== currentRoute.current)
-              .map((link) => (
-                <a href={link.href} css={navbarCss.link} key={link.href}>
-                  <Text color="white" underlineOnHover>
-                    {link.label}
-                  </Text>
-                </a>
-              ))}
-          </div>
-        )}
-      </Transition>
-
-      <button css={navbarCss.moreIcon} onClick={handleOpenNavbar}>
-        {isOpen ? (
-          <Clear color="white" size={24} css={navbarCss.clearIcon} />
-        ) : (
-          <MoreHoriz color="white" size={48} />
-        )}
-      </button>
-      <div css={navbarCss.openedNavbar}>
+      {!isXs && (
         <Transition
-          in={isOpen}
+          in={!isOpen}
           exit
           appear
-          timeout={100}
+          timeout={200}
           unmountOnExit
           classNames="fade"
         >
           {(state) => (
             <div
-              css={navbarCss.selectContainer}
+              css={navbarCss.linkContainer}
               style={{
                 transition: 'all .2s',
                 ...transitions[state],
               }}
             >
-              <Select
-                options={navBarOptions}
-                onChange={handleLand}
-                defaultValue={navBarOptions[0]}
-                value={landen}
-                label="Landen"
-              />
+              {links
+                .filter((link) => link.href !== currentRoute.current)
+                .map((link) => (
+                  <a href={link.href} css={navbarCss.link} key={link.href}>
+                    <Text color="white" underlineOnHover>
+                      {link.label}
+                    </Text>
+                  </a>
+                ))}
             </div>
           )}
         </Transition>
+      )}
+
+      {isXs &&
+        (isOpen ? (
+          <button css={navbarCss.moreIcon} onClick={handleOpenNavbar}>
+            <Clear color="white" size={24} css={navbarCss.clearIcon} />
+          </button>
+        ) : (
+          <button onClick={handleOpenNavbar} css={navbarCss.menuTextBtn}>
+            <Text>MENU</Text>
+          </button>
+        ))}
+      {!isXs && (
+        <button css={navbarCss.moreIcon} onClick={handleOpenNavbar}>
+          {isOpen ? (
+            <Clear color="white" size={24} css={navbarCss.clearIcon} />
+          ) : (
+            <MoreHoriz color="white" size={48} />
+          )}
+        </button>
+      )}
+      <div css={navbarCss.openedNavbar}>
+        {!isXs && (
+          <Transition
+            in={isOpen}
+            exit
+            appear
+            timeout={100}
+            unmountOnExit
+            classNames="fade"
+          >
+            {(state) => (
+              <div
+                css={navbarCss.selectContainer}
+                style={{
+                  transition: 'all .2s',
+                  ...transitions[state],
+                }}
+              >
+                <Select
+                  options={navBarOptions}
+                  onChange={handleLand}
+                  defaultValue={navBarOptions[0]}
+                  value={landen}
+                  label="Landen"
+                />
+              </div>
+            )}
+          </Transition>
+        )}
+
         {links.map((link) => (
           <Transition
             in={isOpen}
@@ -271,7 +321,7 @@ const Navbar = () => {
               >
                 <a href={link.href} css={navbarCss.openedNavbarLink}>
                   {link.href === currentRoute.current && (
-                    <PlayArrow color="white" size={64} />
+                    <PlayArrow color="white" size={isXs ? 32 : 64} />
                   )}
                   <Text color="white">{link.label}</Text>
                 </a>

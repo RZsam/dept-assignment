@@ -12,14 +12,19 @@ import useMediaQuery from 'hooks/useMediaQuery';
 const postsCss = {
   container: css({
     flexBasis: '50%',
+    height: 568,
     [mq('xs')]: css({
       flexBasis: '100%',
+      height: 485,
     }),
   }),
   wideContainer: css({
     flexBasis: '67%',
+    height: 568,
+
     [mq('xs')]: css({
       flexBasis: '100%',
+      height: 485,
     }),
   }),
   descirption: css({
@@ -62,7 +67,7 @@ const Posts: FC<CardProps> = (props) => {
             <Text color="white" css={postsCss.title}>
               {post?.client}
             </Text>
-            {/* not to focus in desktop mode */}
+            {/* only have focus in xs size */}
             <a href="/" {...(!isXs && { tabIndex: -1 })}>
               <Text
                 color="white"

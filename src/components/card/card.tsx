@@ -9,12 +9,9 @@ import mq from 'theme/media-queries';
 const cardCss = {
   container: css({
     width: '100%',
-    height: 628,
+    height: '100%',
     position: 'relative',
     overflow: 'hidden',
-    [mq('xs')]: css({
-      height: 484,
-    }),
   }),
   descirptionContainer: css({
     position: 'absolute',

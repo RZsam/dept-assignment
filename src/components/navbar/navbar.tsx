@@ -7,7 +7,7 @@ import { useEffect, useState, useRef } from 'react';
 import { Transition } from 'react-transition-group';
 import Select from 'components/select';
 import { OptionType } from 'components/select/select';
-import mq, { getMaxWidthString } from 'theme/media-queries';
+import mq, { getMaxWidthString, getMinWidthString } from 'theme/media-queries';
 import useMediaQuery from 'hooks/useMediaQuery';
 
 const navbarCss = {
@@ -24,7 +24,7 @@ const navbarCss = {
     justifyContent: 'space-between',
     flexWrap: 'wrap',
     zIndex: 10,
-    [mq('xs')]: css({
+    [mq('md')]: css({
       padding: `${theme.spacing(2)}px ${theme.spacing(2.5)}px`,
       backgroundColor: theme.colors.background.white,
       alignContent: 'flex-start',
@@ -56,6 +56,11 @@ const navbarCss = {
     display: 'flex',
     alignItems: 'center',
     padding: 0,
+    [`@media only screen and ${getMaxWidthString('lg')} and ${getMinWidthString(
+      'md',
+    )}`]: css({
+      marginLeft: 0,
+    }),
   }),
   logoLink: css({
     display: 'flex',
@@ -68,7 +73,7 @@ const navbarCss = {
   }),
   closeNavbar: css({
     height: 24,
-    [mq('xs')]: css({
+    [mq('md')]: css({
       height: 18,
     }),
   }),
@@ -78,7 +83,7 @@ const navbarCss = {
     flexBasis: '100%',
     alignItems: 'flex-end',
     position: 'relative',
-    [mq('xs')]: css({
+    [mq('md')]: css({
       marginTop: theme.spacing(9),
     }),
   }),
@@ -95,7 +100,7 @@ const navbarCss = {
     flexGrow: 0,
     display: 'flex',
     alignItems: 'center',
-    [mq('xs')]: css({
+    [mq('md')]: css({
       fontSize: 34,
     }),
   }),
@@ -183,7 +188,7 @@ const Navbar = () => {
 
   const currentRoute = useRef('');
 
-  const isXs = useMediaQuery(getMaxWidthString('xs'));
+  const isMd = useMediaQuery(getMaxWidthString('md'));
 
   const handleOpenNavbar = () => {
     setIsopen((isOpen) => !isOpen);
@@ -205,7 +210,7 @@ const Navbar = () => {
       css={[
         navbarCss.container,
         isOpen ? navbarCss.openNavbar : navbarCss.closeNavbar,
-        isXs && isOpen && navbarCss.blackBG,
+        isMd && isOpen && navbarCss.blackBG,
       ]}
     >
       <a
@@ -215,12 +220,12 @@ const Navbar = () => {
         css={navbarCss.logoLink}
       >
         <img
-          src={isXs && !isOpen ? deptDarkLogoUrl : deptLogoUrl}
+          src={isMd && !isOpen ? deptDarkLogoUrl : deptLogoUrl}
           alt="dept logo"
         />
       </a>
 
-      {!isXs && (
+      {!isMd && (
         <Transition
           in={!isOpen}
           exit
@@ -251,7 +256,7 @@ const Navbar = () => {
         </Transition>
       )}
 
-      {isXs &&
+      {isMd &&
         (isOpen ? (
           <button css={navbarCss.moreIcon} onClick={handleOpenNavbar}>
             <Clear color="white" size={24} css={navbarCss.clearIcon} />
@@ -261,7 +266,7 @@ const Navbar = () => {
             <Text>MENU</Text>
           </button>
         ))}
-      {!isXs && (
+      {!isMd && (
         <button css={navbarCss.moreIcon} onClick={handleOpenNavbar}>
           {isOpen ? (
             <Clear color="white" size={24} css={navbarCss.clearIcon} />
@@ -271,7 +276,7 @@ const Navbar = () => {
         </button>
       )}
       <div css={navbarCss.openedNavbar}>
-        {!isXs && (
+        {!isMd && (
           <Transition
             in={isOpen}
             exit
@@ -321,7 +326,7 @@ const Navbar = () => {
               >
                 <a href={link.href} css={navbarCss.openedNavbarLink}>
                   {link.href === currentRoute.current && (
-                    <PlayArrow color="white" size={isXs ? 32 : 64} />
+                    <PlayArrow color="white" size={isMd ? 32 : 64} />
                   )}
                   <Text color="white">{link.label}</Text>
                 </a>

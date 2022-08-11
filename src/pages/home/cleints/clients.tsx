@@ -5,7 +5,7 @@ import { getClient } from 'api/get-data';
 import Text from 'components/text';
 import theme from 'theme';
 import Img from 'components/img';
-import mq, { getMaxWidthString } from 'theme/media-queries';
+import mq, { getMaxWidthString, getMinWidthString } from 'theme/media-queries';
 import useMediaQuery from 'hooks/useMediaQuery';
 
 const clientCss = {
@@ -14,7 +14,7 @@ const clientCss = {
     flexWrap: 'wrap',
     padding: `${theme.spacing(5)}px ${theme.spacing(11.5)}px `,
     backgroundColor: theme.colors.background.black,
-    [mq('xs')]: css({
+    [mq('sm')]: css({
       padding: `${theme.spacing(11.5)}px ${theme.spacing(3)}px `,
       paddingBottom: theme.spacing(4),
     }),
@@ -36,7 +36,12 @@ const clientCss = {
     display: 'flex',
     flexWrap: 'wrap',
     padding: `0 ${theme.spacing(28)}px`,
-    [mq('xs')]: css({
+    [`@media only screen and ${getMaxWidthString('lg')} and ${getMinWidthString(
+      'sm',
+    )}`]: css({
+      padding: `0 ${theme.spacing(2)}px`,
+    }),
+    [mq('sm')]: css({
       padding: 0,
     }),
   }),

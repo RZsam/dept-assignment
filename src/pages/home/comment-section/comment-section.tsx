@@ -7,6 +7,7 @@ import TextArea from 'components/textarea';
 import Button from 'components/button';
 import mq, { getMaxWidthString } from 'theme/media-queries';
 import useMediaQuery from 'hooks/useMediaQuery';
+import { FormEvent } from 'react';
 
 const sectionCss = {
   container: css({
@@ -71,8 +72,12 @@ const sectionCss = {
 const CommentSection = () => {
   const isMd = useMediaQuery(getMaxWidthString('md'));
 
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+  };
+
   return (
-    <div css={sectionCss.container}>
+    <form css={sectionCss.container} onSubmit={onSubmit}>
       <Text css={sectionCss.descirptionContainer}>
         {isMd ? (
           'QUESTION? WE ARE HERE TO HELP!'
@@ -85,15 +90,17 @@ const CommentSection = () => {
       <div css={sectionCss.form}>
         <div css={sectionCss.inputRow}>
           <div css={sectionCss.nameInput}>
-            <Input label="NAME" />
+            <Input label="NAME" required />
           </div>
-          <Input label="EMAIL" type="email" />
+          <Input label="EMAIL" type="email" required />
         </div>
 
-        <TextArea label="MESSAGE" type="email" rows={6} />
-        <Button css={sectionCss.submitBtn}> Send</Button>
+        <TextArea label="MESSAGE" type="email" rows={6} required />
+        <Button css={sectionCss.submitBtn} type="submit">
+          Send
+        </Button>
       </div>
-    </div>
+    </form>
   );
 };
 

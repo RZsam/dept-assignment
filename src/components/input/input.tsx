@@ -53,11 +53,11 @@ const inputCss = {
 type InputProps = React.HTMLProps<HTMLInputElement>;
 
 const Input: FC<StyledInputProps & InputProps> = (props) => {
-  const { value, onChange, label, type } = props;
+  const { label, ...otherProps } = props;
 
   return (
     <div css={inputCss.container}>
-      <input css={inputCss.input} type={type} required />
+      <input css={inputCss.input} {...otherProps} />
       <label css={inputCss.label}>{label}</label>
     </div>
   );

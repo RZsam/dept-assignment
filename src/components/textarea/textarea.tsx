@@ -58,7 +58,7 @@ const TextArea: FC<StyledInputProps & TextAreaProps> = (props) => {
 
   return (
     <div css={textAreaCss.container}>
-      <textarea css={textAreaCss.input} required {...otherProps} />
+      <textarea css={textAreaCss.input} {...otherProps} />
       <label css={textAreaCss.label}>{label}</label>
     </div>
   );

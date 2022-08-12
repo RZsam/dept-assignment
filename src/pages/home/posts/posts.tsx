@@ -10,6 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 import theme from 'theme';
 import mq, { getMaxWidthString } from 'theme/media-queries';
 import useMediaQuery from 'hooks/useMediaQuery';
+import Loading from 'components/loading';
 
 const postsCss = {
   container: css({}),
@@ -38,6 +39,12 @@ const postsCss = {
       border: 'none',
     }),
   }),
+  loadingContainer: css({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 150,
+  }),
 };
 
 const renderPost = (post: Post) => {
@@ -58,7 +65,11 @@ const Posts = () => {
   const isMd = useMediaQuery(getMaxWidthString('md'));
 
   if (isLoading) {
-    return <Text>Loading...</Text>;
+    return (
+      <div css={postsCss.loadingContainer}>
+        <Loading />
+      </div>
+    );
   }
   if (error) {
     return <Text>oops...! please try again!</Text>;

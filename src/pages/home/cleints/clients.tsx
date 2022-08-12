@@ -7,6 +7,7 @@ import theme from 'theme';
 import Img from 'components/img';
 import mq, { getMaxWidthString, getMinWidthString } from 'theme/media-queries';
 import useMediaQuery from 'hooks/useMediaQuery';
+import Loading from 'components/loading';
 
 const clientCss = {
   container: css({
@@ -62,6 +63,13 @@ const clientCss = {
   flexStart: css({ display: 'flex', justifyContent: 'flex-start' }),
   flexCenter: css({ display: 'flex', justifyContent: 'center' }),
   flexEnd: css({ display: 'flex', justifyContent: 'flex-end' }),
+  loadingContainer: css({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: theme.colors.background.black,
+    height: 150,
+  }),
 };
 
 const Clients = () => {
@@ -69,7 +77,11 @@ const Clients = () => {
   const isXs = useMediaQuery(getMaxWidthString('xs'));
 
   if (isLoading) {
-    return <Text>Loading...</Text>;
+    return (
+      <div css={clientCss.loadingContainer}>
+        <Loading color="white" />
+      </div>
+    );
   }
   if (error) {
     return <Text>oops...! please try again!</Text>;

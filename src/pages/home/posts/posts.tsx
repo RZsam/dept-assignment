@@ -11,6 +11,7 @@ import theme from 'theme';
 import mq, { getMaxWidthString } from 'theme/media-queries';
 import useMediaQuery from 'hooks/useMediaQuery';
 import Loading from 'components/loading';
+import Error from 'components/error';
 
 const postsCss = {
   container: css({}),
@@ -45,6 +46,12 @@ const postsCss = {
     justifyContent: 'center',
     height: 150,
   }),
+  errorContainer: css({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 150,
+  }),
 };
 
 const renderPost = (post: Post) => {
@@ -60,7 +67,7 @@ const renderPost = (post: Post) => {
 };
 
 const Posts = () => {
-  const { isLoading, error, data } = useQuery(['repoData'], getPost);
+  const { isLoading, error, data, refetch } = useQuery(['getPosts'], getPost);
 
   const isMd = useMediaQuery(getMaxWidthString('md'));
 
@@ -72,7 +79,11 @@ const Posts = () => {
     );
   }
   if (error) {
-    return <Text>oops...! please try again!</Text>;
+    return (
+      <div css={postsCss.errorContainer}>
+        <Error description="Oops...! Something went wrong!" onClick={refetch} />
+      </div>
+    );
   }
 
   return (

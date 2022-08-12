@@ -8,6 +8,7 @@ import Img from 'components/img';
 import mq, { getMaxWidthString, getMinWidthString } from 'theme/media-queries';
 import useMediaQuery from 'hooks/useMediaQuery';
 import Loading from 'components/loading';
+import Error from 'components/error';
 
 const clientCss = {
   container: css({
@@ -70,10 +71,19 @@ const clientCss = {
     backgroundColor: theme.colors.background.black,
     height: 150,
   }),
+  errorContainer: css({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: theme.colors.background.black,
+  }),
 };
 
 const Clients = () => {
-  const { isLoading, error, data } = useQuery(['getClients'], getClient);
+  const { isLoading, error, data, refetch } = useQuery(
+    ['getClients'],
+    getClient,
+  );
   const isXs = useMediaQuery(getMaxWidthString('xs'));
 
   if (isLoading) {
@@ -84,8 +94,13 @@ const Clients = () => {
     );
   }
   if (error) {
-    return <Text>oops...! please try again!</Text>;
+    return (
+      <div css={clientCss.errorContainer}>
+        <Error description="Oops...! Something went wrong!" onClick={refetch} />
+      </div>
+    );
   }
+
   const selectFlex = (imgIndex: number) => {
     switch (imgIndex % 3) {
       case 0:
@@ -121,8 +136,9 @@ const Clients = () => {
               isXs ? selectFlexXS(index) : selectFlex(index),
               isXs && data?.clients?.length - 3 <= index && clientCss.noMargin,
             ]}
+            key={index}
           >
-            <div css={clientCss.logoContainer} key={index}>
+            <div css={clientCss.logoContainer}>
               <Img src={client.logoUrl} alt={client.alt} />
             </div>
           </div>

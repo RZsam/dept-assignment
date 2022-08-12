@@ -80,12 +80,7 @@ const Banner: FC<CardProps> = ({ text, imgUrl, height }) => {
   };
 
   return (
-    <div
-      css={cardCss.container}
-      // style={{
-      //   height: height || 568,
-      // }}
-    >
+    <div css={cardCss.container}>
       <LazyLoad
         offsetVertical={200}
         onContentVisible={handleContentVisible}
@@ -99,7 +94,7 @@ const Banner: FC<CardProps> = ({ text, imgUrl, height }) => {
               <img
                 css={cardCss.img}
                 src={imgUrl}
-                alt="banner"
+                alt="post"
                 style={{
                   ...defaultStyle,
                   ...transitionStyles[state],

@@ -1,6 +1,11 @@
-# Getting Started with Create React App
+# DEPT Assignment
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This application is DEPT assignment which is bootstraped by [Create React App](https://github.com/facebook/create-react-app).
+
+I enjoyed working on this assignment. I was more on the technical side these years. This was a chance to explore visual development again.
+Thank you for giving me the opportunity
+
+**Note: There are warnings in app from react-transition-group.This [https://github.com/reactstrap/reactstrap/pull/2582](issue) is going to be fixed!**
 
 ## Available Scripts
 

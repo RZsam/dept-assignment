@@ -83,10 +83,9 @@ const ListPost: FC<ListPostProps> = (props) => {
       >
         <>
           {list?.map((clientItem, index) => (
-            <Transition in={isLoaded} timeout={100 + 70 * index}>
+            <Transition in={isLoaded} timeout={100 + 70 * index} key={index}>
               {(state) => (
                 <div
-                  key={index}
                   css={[
                     index !== (list?.length as number) - 1 &&
                       listCss.clientItemBorder,

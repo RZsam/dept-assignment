@@ -10,9 +10,12 @@ import useMediaQuery from 'hooks/useMediaQuery';
 import { ReactComponent as Facebook } from 'assets/svg/facebook.svg';
 import { ReactComponent as Twitter } from 'assets/svg/twitter.svg';
 import { ReactComponent as Instagram } from 'assets/svg/instagram.svg';
+import { North as UpArrow } from '@emotion-icons/material';
 
 const footerCss = {
-  container: css({
+  container: css({ display: 'flex' }),
+  footer: css({
+    flexGrow: 1,
     backgroundColor: theme.colors.background.black,
     padding: `${theme.spacing(6)}px ${theme.spacing(8)}px`,
     [mq('md')]: css({
@@ -71,9 +74,26 @@ const footerCss = {
   lastDetailText: css({
     marginRight: theme.spacing(2),
     marginLeft: 'auto',
+    [mq('md')]: css({
+      marginLeft: 0,
+      marginTop: theme.spacing(3),
+    }),
   }),
   xsSocialIcon: css({
     marginBottom: theme.spacing(5),
+  }),
+  scrollToTopContainer: css({
+    backgroundColor: theme.colors.background.white,
+    flexBasis: '10%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+  }),
+  scrollToTopButton: css({
+    backgroundColor: 'transparent',
+    border: 'none',
+    cursor: 'pointer',
   }),
 };
 
@@ -131,85 +151,96 @@ const Footer = () => {
   const handleContentVisible = () => {
     setIsloaded(true);
   };
+  const scrollTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
   return (
-    <footer css={footerCss.container}>
-      <LazyLoad
-        offsetVertical={200}
-        onContentVisible={handleContentVisible}
-        debounce={false}
-        throttle={100}
-      >
-        <div css={footerCss.flexContainer}>
-          {!isMd && (
-            <a
-              href={deptUrl}
-              target="_blank"
-              rel="noreferrer"
-              css={footerCss.logoLink}
-            >
-              <img src={deptLogoUrl} alt="dept logo" />
-            </a>
-          )}
-          <Transition
-            in={isLoaded}
-            exit
-            appear
-            timeout={100}
-            unmountOnExit
-            classNames="fade"
-          >
-            {(state) => (
-              <>
-                <div
-                  css={footerCss.linkContainer}
-                  style={{
-                    ...defaultStyle,
-                    ...transitions[state],
-                  }}
-                >
-                  {links.map((link) => (
-                    <a href={link.href} css={footerCss.link} key={link.href}>
-                      <Text color="white" underlineOnHover>
-                        {link.label}
-                      </Text>
-                    </a>
-                  ))}
-                </div>
-                {isMd && (
-                  <div css={footerCss.linkContainer}>
-                    <a href="/" css={footerCss.xsSocialIcon}>
-                      <Facebook />
-                    </a>
-                    <a href="/" css={footerCss.xsSocialIcon}>
-                      <Twitter />
-                    </a>
-                    <a href="/" css={footerCss.xsSocialIcon}>
-                      <Instagram />
-                    </a>
-                  </div>
-                )}
-              </>
+    <div css={footerCss.container}>
+      <footer css={footerCss.footer}>
+        <LazyLoad
+          offsetVertical={200}
+          onContentVisible={handleContentVisible}
+          debounce={false}
+          throttle={100}
+        >
+          <div css={footerCss.flexContainer}>
+            {!isMd && (
+              <a
+                href={deptUrl}
+                target="_blank"
+                rel="noreferrer"
+                css={footerCss.logoLink}
+              >
+                <img src={deptLogoUrl} alt="dept logo" />
+              </a>
             )}
-          </Transition>
-        </div>
-      </LazyLoad>
-      <div css={footerCss.detailRow}>
-        <Text color="grey" css={footerCss.firstDetailText}>
-          Chamber of Commerce: 63464101
-        </Text>
-        <Text color="grey" css={footerCss.detailText}>
-          VAT: NL 8552.47.502.B01
-        </Text>
-        <Text color="grey" css={footerCss.detailText}>
-          Terms and conditions
-        </Text>
-        {!isMd && (
+            <Transition
+              in={isLoaded}
+              exit
+              appear
+              timeout={100}
+              unmountOnExit
+              classNames="fade"
+            >
+              {(state) => (
+                <>
+                  <div
+                    css={footerCss.linkContainer}
+                    style={{
+                      ...defaultStyle,
+                      ...transitions[state],
+                    }}
+                  >
+                    {links.map((link) => (
+                      <a href={link.href} css={footerCss.link} key={link.href}>
+                        <Text color="white" underlineOnHover>
+                          {link.label}
+                        </Text>
+                      </a>
+                    ))}
+                  </div>
+                  {isMd && (
+                    <div css={footerCss.linkContainer}>
+                      <a href="/" css={footerCss.xsSocialIcon}>
+                        <Facebook />
+                      </a>
+                      <a href="/" css={footerCss.xsSocialIcon}>
+                        <Twitter />
+                      </a>
+                      <a href="/" css={footerCss.xsSocialIcon}>
+                        <Instagram />
+                      </a>
+                    </div>
+                  )}
+                </>
+              )}
+            </Transition>
+          </div>
+        </LazyLoad>
+        <div css={footerCss.detailRow}>
+          <Text color="grey" css={footerCss.firstDetailText}>
+            Chamber of Commerce: 63464101
+          </Text>
+          <Text color="grey" css={footerCss.detailText}>
+            VAT: NL 8552.47.502.B01
+          </Text>
+          <Text color="grey" css={footerCss.detailText}>
+            Terms and conditions
+          </Text>
           <Text color="grey" css={footerCss.lastDetailText}>
             © 2022 Dept Agency
           </Text>
-        )}
-      </div>
-    </footer>
+        </div>
+      </footer>
+      {!isMd && (
+        <div css={footerCss.scrollToTopContainer}>
+          <button css={footerCss.scrollToTopButton} onClick={scrollTop}>
+            <UpArrow color="black" size={24} />
+            <Text color="black">TOP</Text>
+          </button>
+        </div>
+      )}
+    </div>
   );
 };
 

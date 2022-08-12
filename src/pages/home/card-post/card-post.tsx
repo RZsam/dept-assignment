@@ -32,7 +32,7 @@ const postsCss = {
     width: '75%',
     [mq('md')]: css({
       fontSize: 26,
-      width: '80%',
+      // width: '80%',
     }),
   }),
   title: css({
@@ -49,6 +49,12 @@ const postsCss = {
   readMore: css({
     marginLeft: theme.spacing(0.5),
     display: 'inline-block',
+  }),
+  descirptionContainer: css({
+    width: '80%',
+    [mq('md')]: css({
+      width: '100%',
+    }),
   }),
 };
 
@@ -67,12 +73,14 @@ const Posts: FC<CardProps> = (props) => {
             <Text color="white" css={postsCss.title}>
               {post?.client}
             </Text>
-            {/* only have focus in xs size */}
-            <a href="/" {...(!isMd && { tabIndex: -1 })}>
-              <Text color="white" css={postsCss.descirption} underlineOnHover>
-                {post?.description}
-              </Text>
-            </a>
+            <div css={postsCss.descirptionContainer}>
+              {/* only have focus in xs size */}
+              <a href="/" {...(!isMd && { tabIndex: -1 })}>
+                <Text color="white" css={postsCss.descirption} underlineOnHover>
+                  {post?.description}
+                </Text>
+              </a>
+            </div>
             {!isMd && (
               <div>
                 <a href="/" css={postsCss.readMoreContainer}>

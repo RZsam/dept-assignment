@@ -3,7 +3,15 @@ import theme from 'theme';
 import Home from 'pages/home';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchInterval: false,
+      refetchIntervalInBackground: false,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 function App() {
   return (

@@ -1,21 +1,18 @@
 /** @jsxImportSource @emotion/react */
 import Banner from './banner';
-import Navbar from 'components/navbar';
 import Posts from './posts';
 import Clients from './cleints';
 import CommentSection from './comment-section';
-import Footer from './footer';
+import Layout from 'layout/main-layout';
 
 const Home = () => {
   return (
-    <div>
-      <Navbar />
+    <Layout>
       <Banner />
       <Posts />
       <Clients />
       <CommentSection />
-      <Footer />
-    </div>
+    </Layout>
   );
 };
 

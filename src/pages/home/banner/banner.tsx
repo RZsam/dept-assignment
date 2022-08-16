@@ -35,7 +35,7 @@ const Banner = () => {
   return (
     <div css={isMd ? bannerCss.xsContainer : bannerCss.continer}>
       <Card
-        imgUrl="https://s3-alpha-sig.figma.com/img/d144/e347/ca2df6a6b07764f9c1fd0656877bdb26?Expires=1660521600&Signature=MPNl0I5KZdJwDCwO~smvAzwDUo69IFfNIDGlgR0DmC4ijQcVlzpV1tTKexlE3vlyjW5Vcaltez93foE0mIFlLXXMv0FshIAg1S-DQ7WizQyIG0xIFx5Qw35RJ9kFRNxb6monNUSgsFRIyJ-UqellmkodtewQtaVamWPmH2uIPGYpzh-91DI7h2OdOY1kK0o2Acnw0RExrAWf4TaoQ4qDsRcuhMiE1W6EYnF6PaL2zhYL2whnIQGEKwL3vOjyPOJ5m2~Q5sTbjubapamUrj2qrRhPvubeKLa9EmxpYXYjofitlmA39caT~64ocXNpdkjKQw-sP4ZDTI1NK~95HQwQIQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
+        imgUrl="https://s3-alpha-sig.figma.com/img/d144/e347/ca2df6a6b07764f9c1fd0656877bdb26?Expires=1661731200&Signature=eNhvxVio-8h1OUJ3iZS4V9SfejWD8c1cEo2wFwNpYYeD5bXEDZIqFCBpDZXFvGoZi9tbedl11Wcsje1sYWWmyM5zi4GRkFR2px5vIUkG-VweVaKdGCvUVQDK8dWVVzMGy3umeMhFsT0RdmizSSePJ6VJjUKbqlLYdvbZ6ZK-2me5JRfzV3DqDvClTApkzgKfHxxxLtwAed6UCMTiGmUuCm9Br2B1xk6M79IK7dmDMhiXOHfn6AZwwYsqNIDT6Hd7aaVa7lCbSDlCGTs0l5MmzJ41ekB8uVJztZAJQBvczwDgYQdfnVbROHnpiFVUkkE6jqYXlOZ7kp2ZcgBzuUmH-Q__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
         text={
           <>
             <Text color="white" css={bannerCss.title}>
